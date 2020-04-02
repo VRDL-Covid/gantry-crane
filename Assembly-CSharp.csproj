@@ -68,6 +68,7 @@
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\cameraController.cs" />
     <Compile Include="Assets\craneController.cs" />
+    <Compile Include="Assets\height_constraint.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/kee18/WFH/gantry-crane/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

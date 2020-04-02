@@ -26,6 +26,9 @@ public class ChainSpawn : MonoBehaviour
     private float drop;
     private float keytimer;
     public float ramptime;
+    private SpringJoint gosj;
+    private Rigidbody gorb;
+    private height_constraint gohc;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +45,8 @@ public class ChainSpawn : MonoBehaviour
             rotate = Quaternion.Euler(0, 90 * ((float)i+1f), 90);
             link.name = string.Format("chainLink{0}", j);
             go = Instantiate(link, new Vector3(this.transform.position.x, height, this.transform.position.z), rotate) as GameObject;
+            gohc = go.GetComponent(typeof(height_constraint)) as height_constraint;
+            gohc.connGO = goarray[j + 1];
             goarray[j] = go;
             j--;
         }
@@ -76,6 +81,8 @@ public class ChainSpawn : MonoBehaviour
             avrotate.w = (rotate2.w + (rotate.w)) / 2;
             link.name = string.Format("chainLink{0}", k);
             go = Instantiate(link, insttran, rotate) as GameObject;
+            gohc = goarray[k + 1].GetComponent(typeof(height_constraint)) as height_constraint;
+            gohc.connGO = this.gameObject;
             go.transform.Rotate(-90, 0, 0, Space.Self);
             goarray[k] = go;
         }
@@ -89,10 +96,6 @@ public class ChainSpawn : MonoBehaviour
         currentheight = this.transform.position.y;
         if (Input.GetKeyDown("e")) { keytimer = 0f; }
         if (Input.GetKeyDown("q")) { keytimer = 0f; }
-        if (Input.GetKeyDown("w")) { keytimer = 0f; }
-        if (Input.GetKeyDown("a")) { keytimer = 0f; }
-        if (Input.GetKeyDown("s")) { keytimer = 0f; }
-        if (Input.GetKeyDown("d")) { keytimer = 0f; }
         if (Input.GetKey("e"))
         {
             if(keytimer < ramptime) {
@@ -116,50 +119,6 @@ public class ChainSpawn : MonoBehaviour
             }
             LowerChain();
         }
-        ///if (Input.GetKey("d")) 
-        ///{ 
-        ///    if (keytimer < ramptime)
-        ///    {
-        ///        transform.Translate(Time.fixedDeltaTime * rlspeed * keytimer / ramptime,0, 0, Space.World);
-        ///    }
-        ///    else
-        ///    {
-        ///        transform.Translate(Time.fixedDeltaTime * rlspeed,0, 0, Space.World);
-        ///    }
-        ///}
-        ///if (Input.GetKey("a"))
-        ///{
-        ///    if (keytimer < ramptime)
-        ///    {
-        ///        transform.Translate(-Time.fixedDeltaTime * rlspeed * keytimer / ramptime, 0, 0, Space.World);
-        ///    }
-        ///    else
-        ///    {
-        ///        transform.Translate(-Time.fixedDeltaTime * rlspeed, 0, 0, Space.World);
-        ///    }
-        ///}
-        ///if (Input.GetKey("w"))
-        ///{
-        ///    if (keytimer < ramptime)
-        ///    {
-        ///        transform.Translate(0, 0, Time.fixedDeltaTime * rlspeed * keytimer / ramptime, Space.World);
-        ///    }
-        ///    else
-        ///    {
-        ///        transform.Translate(0, 0, Time.fixedDeltaTime * rlspeed, Space.World);
-        ///    }
-        ///}
-        ///if (Input.GetKey("s"))
-        ///{
-        ///    if (keytimer < ramptime)
-        ///    {
-        ///        transform.Translate(0, 0, -Time.fixedDeltaTime * rlspeed * keytimer / ramptime, Space.World);
-        ///    }
-        ///    else
-        ///    {
-        ///        transform.Translate(0, 0, -Time.fixedDeltaTime * rlspeed, Space.World);
-        ///    }
-        ///}
         keytimer += Time.fixedDeltaTime;
     }
 }
