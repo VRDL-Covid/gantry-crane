@@ -11,6 +11,9 @@
 !/ProjectSettings/
 !/Assets/                # Add Assets folder, but ...
 !/Packages/
+<<<<<<< HEAD
 
 # Any modules kept in their own git repo.
 Assets/_modules/fps/
+=======
+>>>>>>> remotes/origin/master

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":44.47119140625,"y":101.95777130126953,"z":116.9383316040039},"rotation":{"x":-0.11522486060857773,"y":0.44096750020980837,"z":0.057203102856874469,"w":0.8882574439048767},"size":22.279109954833986,"orthographic":true}
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":44.96878433227539,"y":96.90164947509766,"z":112.25375366210938},"rotation":{"x":0.48736658692359927,"y":0.009168275631964207,"z":-0.005117463879287243,"w":0.8731345534324646},"size":3.087103843688965,"orthographic":false}
+>>>>>>> remotes/origin/master
