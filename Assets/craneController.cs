@@ -82,13 +82,20 @@ public class craneController : MonoBehaviour
     public void hookUp()
     {
         hook.transform.position = hook.transform.position + Vector3.up * hookSpeed * Time.deltaTime;
-        camera.position += Vector3.up * hookSpeed * Time.deltaTime;
+        if (camera.GetComponent<cameraController>().canFly)
+        {
+            camera.position += Vector3.up * hookSpeed * Time.deltaTime;
+        }
+        
     }
 
     public void hookDown()
     {
         hook.transform.position = hook.transform.position + Vector3.up * -hookSpeed * Time.deltaTime;
-        camera.position += Vector3.up * -hookSpeed * Time.deltaTime;
+        if (camera.GetComponent<cameraController>().canFly)
+        {
+            camera.position += Vector3.up * -hookSpeed * Time.deltaTime;
+        }
     }
 }
 
