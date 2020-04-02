@@ -8,6 +8,7 @@ public class ChainSpawn : MonoBehaviour
 
 
     public GameObject link;
+    public GameObject hook;
     private Quaternion rotate;
     private Quaternion rotate2;
     private Quaternion avrotate;
@@ -29,7 +30,7 @@ public class ChainSpawn : MonoBehaviour
     void Start()
     {
         goarray = new GameObject[250];
-        drop = 0.1f;
+        drop = 0.117f;
         i = 0;
         j = linknumber;
         k = linknumber;
@@ -37,13 +38,15 @@ public class ChainSpawn : MonoBehaviour
         height = iheight;
         for (i=0; i < linknumber; i++)
         {
-            height = height - drop;
+            height -= drop;
             rotate = Quaternion.Euler(0, 90 * ((float)i+1f), 90);
             link.name = string.Format("chainLink{0}", j);
             go = Instantiate(link, new Vector3(this.transform.position.x, height, this.transform.position.z), rotate) as GameObject;
             goarray[j] = go;
             j--;
         }
+        rotate = Quaternion.Euler(-90, 0, 0);
+        Instantiate(hook, new Vector3(this.transform.position.x, height - 0.1935482F, this.transform.position.z), rotate);
     }
     void RaiseChain()
     {
@@ -113,50 +116,50 @@ public class ChainSpawn : MonoBehaviour
             }
             LowerChain();
         }
-        if (Input.GetKey("d")) 
-        { 
-            if (keytimer < ramptime)
-            {
-                transform.Translate(Time.fixedDeltaTime * rlspeed * keytimer / ramptime,0, 0, Space.World);
-            }
-            else
-            {
-                transform.Translate(Time.fixedDeltaTime * rlspeed,0, 0, Space.World);
-            }
-        }
-        if (Input.GetKey("a"))
-        {
-            if (keytimer < ramptime)
-            {
-                transform.Translate(-Time.fixedDeltaTime * rlspeed * keytimer / ramptime, 0, 0, Space.World);
-            }
-            else
-            {
-                transform.Translate(-Time.fixedDeltaTime * rlspeed, 0, 0, Space.World);
-            }
-        }
-        if (Input.GetKey("w"))
-        {
-            if (keytimer < ramptime)
-            {
-                transform.Translate(0, 0, Time.fixedDeltaTime * rlspeed * keytimer / ramptime, Space.World);
-            }
-            else
-            {
-                transform.Translate(0, 0, Time.fixedDeltaTime * rlspeed, Space.World);
-            }
-        }
-        if (Input.GetKey("s"))
-        {
-            if (keytimer < ramptime)
-            {
-                transform.Translate(0, 0, -Time.fixedDeltaTime * rlspeed * keytimer / ramptime, Space.World);
-            }
-            else
-            {
-                transform.Translate(0, 0, -Time.fixedDeltaTime * rlspeed, Space.World);
-            }
-        }
+        ///if (Input.GetKey("d")) 
+        ///{ 
+        ///    if (keytimer < ramptime)
+        ///    {
+        ///        transform.Translate(Time.fixedDeltaTime * rlspeed * keytimer / ramptime,0, 0, Space.World);
+        ///    }
+        ///    else
+        ///    {
+        ///        transform.Translate(Time.fixedDeltaTime * rlspeed,0, 0, Space.World);
+        ///    }
+        ///}
+        ///if (Input.GetKey("a"))
+        ///{
+        ///    if (keytimer < ramptime)
+        ///    {
+        ///        transform.Translate(-Time.fixedDeltaTime * rlspeed * keytimer / ramptime, 0, 0, Space.World);
+        ///    }
+        ///    else
+        ///    {
+        ///        transform.Translate(-Time.fixedDeltaTime * rlspeed, 0, 0, Space.World);
+        ///    }
+        ///}
+        ///if (Input.GetKey("w"))
+        ///{
+        ///    if (keytimer < ramptime)
+        ///    {
+        ///        transform.Translate(0, 0, Time.fixedDeltaTime * rlspeed * keytimer / ramptime, Space.World);
+        ///    }
+        ///    else
+        ///    {
+        ///        transform.Translate(0, 0, Time.fixedDeltaTime * rlspeed, Space.World);
+        ///    }
+        ///}
+        ///if (Input.GetKey("s"))
+        ///{
+        ///    if (keytimer < ramptime)
+        ///    {
+        ///        transform.Translate(0, 0, -Time.fixedDeltaTime * rlspeed * keytimer / ramptime, Space.World);
+        ///    }
+        ///    else
+        ///    {
+        ///        transform.Translate(0, 0, -Time.fixedDeltaTime * rlspeed, Space.World);
+        ///    }
+        ///}
         keytimer += Time.fixedDeltaTime;
     }
 }
