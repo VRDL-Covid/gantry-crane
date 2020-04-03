@@ -46,12 +46,22 @@ public class ChainSpawn : MonoBehaviour
             link.name = string.Format("chainLink{0}", j);
             go = Instantiate(link, new Vector3(this.transform.position.x, height, this.transform.position.z), rotate) as GameObject;
             gohc = go.GetComponent(typeof(height_constraint)) as height_constraint;
-            gohc.connGO = goarray[j + 1];
+            if (j == linknumber) {
+                gohc.connGO = this.gameObject;
+            }
+            else
+            {
+                gohc.connGO = goarray[j + 1];
+            }
+            gohc.offset = 0.125f;
             goarray[j] = go;
             j--;
         }
         rotate = Quaternion.Euler(-90, 0, 0);
-        Instantiate(hook, new Vector3(this.transform.position.x, height - 0.1935482F, this.transform.position.z), rotate);
+        go = Instantiate(hook, new Vector3(this.transform.position.x, height - 0.1935482f, this.transform.position.z), rotate) as GameObject;
+        gohc = go.GetComponent(typeof(height_constraint)) as height_constraint;
+        gohc.connGO = goarray[1];
+        gohc.offset = 0.25f;
     }
     void RaiseChain()
     {
@@ -60,6 +70,9 @@ public class ChainSpawn : MonoBehaviour
             transform.Translate(-drop, 0, 0, Space.Self);
             transform.Rotate(90, 0, 0, Space.Self);
             Destroy(goarray[k]);
+            gohc = goarray[k - 1].GetComponent(typeof(height_constraint)) as height_constraint;
+            gohc.connGO = this.gameObject;
+            gohc.offset = 0.12f;
             k--;
         }
     }
@@ -70,21 +83,23 @@ public class ChainSpawn : MonoBehaviour
             insttran.x = this.transform.position.x;
             insttran.y = this.transform.position.y;
             insttran.z = this.transform.position.z;
-            transform.Translate(drop, 0, 0, Space.Self);
-            transform.Rotate(90, 0, 0, Space.Self);
-            k++;
-            rotate2 = goarray[k - 1].transform.rotation;
             rotate = this.transform.rotation;
+            k++;
             avrotate.x = (rotate2.x + (rotate.x)) / 2;
             avrotate.y = (rotate2.y + (rotate.y)) / 2;
             avrotate.z = (rotate2.z + (rotate.z)) / 2;
             avrotate.w = (rotate2.w + (rotate.w)) / 2;
             link.name = string.Format("chainLink{0}", k);
             go = Instantiate(link, insttran, rotate) as GameObject;
-            gohc = goarray[k + 1].GetComponent(typeof(height_constraint)) as height_constraint;
-            gohc.connGO = this.gameObject;
-            go.transform.Rotate(-90, 0, 0, Space.Self);
             goarray[k] = go;
+            gohc = goarray[k - 1].GetComponent(typeof(height_constraint)) as height_constraint;
+            gohc.connGO = go.gameObject;
+            gohc.offset = 0.12f;
+            transform.Translate(drop, 0, 0, Space.Self);
+            transform.Rotate(90, 0, 0, Space.Self);
+            gohc = goarray[k].GetComponent(typeof(height_constraint)) as height_constraint;
+            gohc.connGO = this.gameObject;
+            gohc.offset = 0.12f;
         }
     }
 

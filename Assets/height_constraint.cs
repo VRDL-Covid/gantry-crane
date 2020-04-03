@@ -6,6 +6,7 @@ public class height_constraint : MonoBehaviour
 {
     public GameObject connGO;
     private Vector3 vector;
+    public float offset;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +17,9 @@ public class height_constraint : MonoBehaviour
     void Update()
     {
         vector = connGO.transform.position - this.transform.position;
-        if(vector.magnitude > 0.117f)
+        if(vector.magnitude > offset)
         {
-            this.transform.position += vector.normalized * (vector.magnitude - 0.117f);
+            this.transform.position += vector.normalized * (vector.magnitude - offset);
         }
     }
 }
