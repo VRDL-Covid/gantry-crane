@@ -27,7 +27,7 @@ public class height_constraint : MonoBehaviour
 
         this.transform.position -= new Vector3(0f, gravfactor, 0);
 
-        this.transform.position += (velocity + velocityconn) * velfactor * Time.fixedDeltaTime;
+        this.transform.position += (velocity*0.0f + (velocityconn * velfactor)) * Time.fixedDeltaTime;
         vector = connGO.transform.position - this.transform.position;
         if(vector.magnitude > 0f)
         {

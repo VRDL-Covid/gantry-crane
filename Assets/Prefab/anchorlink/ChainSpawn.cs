@@ -107,12 +107,14 @@ public class ChainSpawn : MonoBehaviour
             link.name = string.Format("chainLink{0}", k);
             go = Instantiate(link, insttran, rotate) as GameObject;
             goarray[k] = go;
-//            goarray[k - 1].transform.SetParent(go.transform);
-            gohc = goarray[k - 1].GetComponent(typeof(height_constraint)) as height_constraint;
-            gohc.connGO = go.gameObject;
+            //            goarray[k - 1].transform.SetParent(go.transform);            
+            gohc = goarray[k].GetComponent(typeof(height_constraint)) as height_constraint;
+            gohc.connGO = this.gameObject;
             gohc.offset = 0.1179f;
             gohc.velfactor = velmult;
             gohc.gravfactor = gravity;
+            gohc = goarray[k - 1].GetComponent(typeof(height_constraint)) as height_constraint;
+            gohc.connGO = go.gameObject;
             transform.Translate(drop, 0, 0, Space.Self);
             transform.Rotate(90, 0, 0, Space.Self);
             gohc = goarray[k].GetComponent(typeof(height_constraint)) as height_constraint;
