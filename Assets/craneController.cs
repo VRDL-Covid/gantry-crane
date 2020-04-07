@@ -8,6 +8,8 @@ public class craneController : MonoBehaviour
     public float craneSpeed = 0.5f;
     public float truckSpeed = 0.5f;
     public float hookSpeed = 0.5f;
+
+    public analogueControllerBehaviour controller;
     public GameObject hook;
     public GameObject truck;
     Transform camera;
@@ -20,6 +22,14 @@ public class craneController : MonoBehaviour
     void Update()
     {
         handleKeyboardInput();
+
+        handleControllerConnection();
+    }
+
+    void handleControllerConnection()
+    {
+        transform.position += controller.outputY * Vector3.forward * craneSpeed * Time.deltaTime;
+        truck.transform.position += controller.outputX * Vector3.right * craneSpeed * Time.deltaTime;
     }
 
     private void handleKeyboardInput()
@@ -57,26 +67,22 @@ public class craneController : MonoBehaviour
 
     public void moveForward()
     {
-        transform.position = transform.position + Vector3.forward * craneSpeed * Time.deltaTime ;
-        camera.position +=  Vector3.forward * craneSpeed * Time.deltaTime ;
+        transform.position = transform.position + Vector3.forward * craneSpeed * Time.deltaTime;
     }
 
     public void moveBackward()
     {
         transform.position = transform.position + Vector3.forward * -craneSpeed * Time.deltaTime;
-        camera.position += Vector3.forward * -craneSpeed * Time.deltaTime;
     }
 
     public void moveRight()
     {
         truck.transform.position = truck.transform.position + Vector3.right * truckSpeed * Time.deltaTime;
-        camera.position += Vector3.right * truckSpeed * Time.deltaTime;
     }
 
     public void moveLeft()
     {
         truck.transform.position = truck.transform.position + Vector3.right * -truckSpeed * Time.deltaTime;
-        camera.position += Vector3.right * -truckSpeed * Time.deltaTime;
     }
 
     public void hookUp()
@@ -86,7 +92,7 @@ public class craneController : MonoBehaviour
         {
             camera.position += Vector3.up * hookSpeed * Time.deltaTime;
         }
-        
+
     }
 
     public void hookDown()
@@ -98,4 +104,3 @@ public class craneController : MonoBehaviour
         }
     }
 }
-
