@@ -75,7 +75,7 @@ public class ChainSpawn : MonoBehaviour
         gohc.connGO = goarray[1];
         gohc.offset = 0.25f;
         go.transform.SetParent(goarray[1].transform);
-//        for (i = 1; 1 < linknumber; i++) { goarray[i].transform.SetParent(goarray[i+1].transform); }
+        for (i = 1; 1 < linknumber; i++) { goarray[i].transform.SetParent(goarray[i+1].transform); }
     }
     void RaiseChain()
     {
@@ -83,7 +83,7 @@ public class ChainSpawn : MonoBehaviour
         {
             transform.Translate(-drop, 0, 0, Space.Self);
             transform.Rotate(90, 0, 0, Space.Self);
- //           goarray[k].transform.DetachChildren();
+            goarray[k].transform.DetachChildren();
             Destroy(goarray[k]);
             gohc = goarray[k - 1].GetComponent(typeof(height_constraint)) as height_constraint;
             gohc.connGO = this.gameObject;
@@ -107,7 +107,7 @@ public class ChainSpawn : MonoBehaviour
             link.name = string.Format("chainLink{0}", k);
             go = Instantiate(link, insttran, rotate) as GameObject;
             goarray[k] = go;
-            //            goarray[k - 1].transform.SetParent(go.transform);            
+            goarray[k - 1].transform.SetParent(go.transform);            
             gohc = goarray[k].GetComponent(typeof(height_constraint)) as height_constraint;
             gohc.connGO = this.gameObject;
             gohc.offset = 0.1179f;
