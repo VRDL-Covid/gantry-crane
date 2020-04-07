@@ -49,3 +49,5 @@ obj
 >>>>>>> Branch_77a0af53
 /*.csproj
 /*.sln
+/.vs/gantry-crane/v16/*.suo
+/.vs/PAB/v16/*.suo
