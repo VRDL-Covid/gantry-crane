@@ -40,5 +40,9 @@ ehthumbs.db
 Thumbs.db
 Library
 obj
+<<<<<<< HEAD
+=======
+/*.sln
+>>>>>>> chainOptimisation
 /*.csproj
 /*.sln
