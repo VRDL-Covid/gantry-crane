@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.pab.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\gwc59\\OneDrive\\Desktop\\WFH\\gantry-crane\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "PAB [Testing]"
+        }
+      }
+    }
+  ]
+}
