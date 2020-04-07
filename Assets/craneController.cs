@@ -10,12 +10,10 @@ public class craneController : MonoBehaviour
     public float hookSpeed = 0.5f;
 
     public analogueControllerBehaviour controller;
-    public GameObject hook;
     public GameObject truck;
-    Transform camera;
     private void Start()
     {
-        camera = cameraController._camera.transform;
+
     }
 
     // Update is called once per frame
@@ -87,20 +85,12 @@ public class craneController : MonoBehaviour
 
     public void hookUp()
     {
-        //hook.transform.position = hook.transform.position + Vector3.up * hookSpeed * Time.deltaTime;
-        if (camera.GetComponent<cameraController>().canFly)
-        {
-            camera.position += Vector3.up * hookSpeed * Time.deltaTime;
-        }
+
 
     }
 
     public void hookDown()
     {
         //hook.transform.position = hook.transform.position + Vector3.up * -hookSpeed * Time.deltaTime;
-        if (camera.GetComponent<cameraController>().canFly)
-        {
-            camera.position += Vector3.up * -hookSpeed * Time.deltaTime;
-        }
     }
 }
