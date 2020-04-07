@@ -40,3 +40,6 @@ ehthumbs.db
 Thumbs.db
 Library
 obj
+/*.sln
+/*.csproj
+/*.sln
