@@ -67,7 +67,7 @@ public class craneController : MonoBehaviour
 
     public void moveForward()
     {
-        transform.position = transform.position + Vector3.forward * craneSpeed * Time.deltaTime ;
+        transform.position = transform.position + Vector3.forward * craneSpeed * Time.deltaTime;
     }
 
     public void moveBackward()
@@ -92,7 +92,7 @@ public class craneController : MonoBehaviour
         {
             camera.position += Vector3.up * hookSpeed * Time.deltaTime;
         }
-        
+
     }
 
     public void hookDown()
@@ -104,4 +104,3 @@ public class craneController : MonoBehaviour
         }
     }
 }
-
