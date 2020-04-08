@@ -5,6 +5,7 @@ using UnityEngine;
 public class height_constraint : MonoBehaviour
 {
     public GameObject connGO;
+    public int k;
     private Vector3 vector;
     private Vector3 vectorWorld;
     public Vector3 velocity;
@@ -23,25 +24,43 @@ public class height_constraint : MonoBehaviour
     private float anglecur;
     private float anglediff;
     private float angleWorld;
+    private ChainSpawn CS;
+    private GameObject parent;
     // Start is called before the first frame update
     void Start()
     {
 
     }
 
-    // Update is called once per frame
-    public Vector3 PositionUpdate(Vector3 velocityConn)
+    // Update is called once per 
+    public Vector3 PositionUpdate(Vector3 velocityConn, int i,int k, GameObject anchor)
     {
-        oldpos = this.transform.position;
-        oldconnpos = connGO.transform.position;
-        oldWorldPos = this.transform.position;
+        CS = anchor.GetComponent(typeof(ChainSpawn)) as ChainSpawn;
+        oldpos = CS.posnarray[i];
+        if (i != k)
+        {
+            oldconnpos = CS.posnarray[i + 1];
+        } 
+        else
+        {
+            oldconnpos = anchor.transform.position;
+        }
         vectorWorld = oldconnpos - oldpos;
-        angleWorld = Vector3.Dot(vectorWorld.normalized, Vector3.up);
-        gravity = 0.1f * 9.81f * Time.fixedDeltaTime * Mathf.Sin(Mathf.Acos(angleWorld)) * Vector3.down;
-        vector = oldpos + gravity + velocityConn*Time.fixedDeltaTime;
+        angleWorld = Vector3.Dot(vectorWorld.normalized, Vector3.down);
+        anglerad = Mathf.Acos(angleWorld);
+        gravity = 0.1f * 9.81f * Time.fixedDeltaTime * Mathf.Sin(anglerad) * Vector3.down;
+        vector = oldpos + gravity + velocityConn*Time.fixedDeltaTime*1f;
         this.transform.position = ((-oldconnpos + vector).normalized * offset)+oldconnpos;
 
-        velocity = (this.transform.position - oldWorldPos) / Time.fixedDeltaTime;
+        CS.posnarray[i] = this.transform.position;
+
+        velocity = (this.transform.position - oldpos) / Time.fixedDeltaTime;
+        
+        //anglerad = Mathf.Acos(dot);
+        angledeg = (anglerad * 180f / Mathf.PI) - 90f;
+        anglecur = this.transform.rotation.eulerAngles.z;
+        anglediff = -anglecur + angledeg;
+        transform.Rotate(0, 0, anglediff, Space.Self);
 
         return velocity;
 
@@ -59,13 +78,6 @@ public class height_constraint : MonoBehaviour
         ////vector = connGO.transform.position - this.transform.localPosition;
         //this.transform.position = vector.normalized * (vector.magnitude - (offset));
         ////this.transform.localPosition = vector.normalized * ((offset));
-        //
-        ////dot = Vector3.Dot(-vector.normalized, Vector3.down);
-        ////anglerad = Mathf.Acos(dot);
-        ////angledeg = (anglerad * 180f / Mathf.PI) - 90f;
-        ////anglecur = this.transform.rotation.eulerAngles.z;
-        ////anglediff = -anglecur + angledeg;
-        ////transform.Rotate(0, 0, anglediff, Space.Self);
         //
         //
         //velocity = (this.transform.position - oldpos) / Time.fixedDeltaTime;

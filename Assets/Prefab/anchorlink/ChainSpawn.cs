@@ -26,6 +26,7 @@ public class ChainSpawn : MonoBehaviour
     private GameObject go;
     private GameObject[] goarray;
     private Vector3[] velarray;
+    public Vector3[] posnarray;
     private int i;
     private int j;
     private int k;
@@ -44,6 +45,7 @@ public class ChainSpawn : MonoBehaviour
     {
         goarray = new GameObject[250];
         velarray = new Vector3[250];
+        posnarray = new Vector3[250];
         drop = 0.1179f;
         offset = 0.12f;
         i = 0;
@@ -54,9 +56,10 @@ public class ChainSpawn : MonoBehaviour
         for (i = 0; i < linknumber; i++)
         {
             height -= drop;
-            rotate = Quaternion.Euler(0, 90 * ((float)i + 1f), 90);
+            rotate = Quaternion.Euler(0, 90 * ((Mathf.Pow((-1f),(float)i) + 1f)/2f), 90);
             link.name = string.Format("chainLink{0}", j);
             go = Instantiate(link, new Vector3(this.transform.position.x, height, this.transform.position.z), rotate) as GameObject;
+            posnarray[i] = go.transform.position;
             gohc = go.GetComponent(typeof(height_constraint)) as height_constraint;
             if (j == linknumber) {
                 gohc.connGO = this.gameObject;
@@ -115,6 +118,7 @@ public class ChainSpawn : MonoBehaviour
             avrotate.w = (rotate2.w + (rotate.w)) / 2;
             link.name = string.Format("chainLink{0}", k);
             go = Instantiate(link, insttran, rotate) as GameObject;
+            posnarray[k] = go.transform.position;
             goarray[k] = go;
             goarray[k - 1].transform.SetParent(go.transform);   
             gohc = goarray[k].GetComponent(typeof(height_constraint)) as height_constraint;
@@ -167,11 +171,11 @@ public class ChainSpawn : MonoBehaviour
         }
         //updatexz();
         //updateHeights(); 
-        for (i = k-1; i > 0; i--)
+        for (i = k; i > 0; i--)
         {
             gohc = goarray[i].GetComponent(typeof(height_constraint)) as height_constraint;
-            velarray[i]= gohc.PositionUpdate(velarray[i+1]);
-            if (velarray[i].x != 0|| velarray[i].y != 0 || velarray[i].z != 0 ) { print(velarray[i]); }
+            velarray[i]= gohc.PositionUpdate(velarray[i+1], i,k, this.gameObject);
+            //if (velarray[i].x != 0|| velarray[i].y != 0 || velarray[i].z != 0 ) { print(velarray[i]); }
         }
             keytimer += Time.fixedDeltaTime;
     }
