@@ -7,10 +7,16 @@ public class cameraController : MonoBehaviour
     public static GameObject _camera;
     public float cameraSpeed = 0.5f;
 
+   
+
     public bool canFly = false;
 
     Vector3 relFwd;
     Vector3 relRight;
+    Quaternion defaultRotation;
+
+    float width;
+    float height;
 
  
     public Transform defaultTarget;
@@ -25,12 +31,16 @@ public class cameraController : MonoBehaviour
     void Start()
     {
         target = defaultTarget;
+        width = Screen.width;
+        height = Screen.height;
+        defaultRotation = gameObject.transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
         handleKeyboardInput();
+        handleLook();
     }
 
     public void handleKeyboardInput()
@@ -74,5 +84,17 @@ public class cameraController : MonoBehaviour
 
     }
 
-    
+    public void handleLook()
+    {
+        float horizontalRotation = 0;
+        float verticalRotation = 0;
+        Vector2 mp;
+        mp = Input.mousePosition;
+        if (!Input.GetMouseButton(0))
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(defaultRotation.eulerAngles + new Vector3(Mathf.Lerp(30, -10, mp.y / height), Mathf.Lerp(-90, 90, mp.x / width), 0)),5f*Time.deltaTime);
+        }
+        
+
+    }
 }
