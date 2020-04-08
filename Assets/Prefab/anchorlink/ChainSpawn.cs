@@ -25,6 +25,7 @@ public class ChainSpawn : MonoBehaviour
     public float velmult;
     private GameObject go;
     private GameObject[] goarray;
+    private Vector3[] velarray;
     private int i;
     private int j;
     private int k;
@@ -42,6 +43,7 @@ public class ChainSpawn : MonoBehaviour
     void Start()
     {
         goarray = new GameObject[250];
+        velarray = new Vector3[250];
         drop = 0.1179f;
         offset = 0.12f;
         i = 0;
@@ -75,16 +77,23 @@ public class ChainSpawn : MonoBehaviour
         gohc.connGO = goarray[1];
         gohc.offset = 0.25f;
         go.transform.SetParent(goarray[1].transform);
-        for (i = 1; 1 < linknumber; i++) { goarray[i].transform.SetParent(goarray[i+1].transform); }
+        i = 0;
+        goarray[linknumber].transform.SetParent(this.transform);
+        for (i = 1; 1 < (linknumber-1); i++)
+        { 
+            goarray[i].transform.SetParent(goarray[i+1].transform); 
+        }
     }
     void RaiseChain()
     {
         if (currentheight - iheight > drop)
         {
+            this.transform.DetachChildren();
             transform.Translate(-drop, 0, 0, Space.Self);
             transform.Rotate(90, 0, 0, Space.Self);
             goarray[k].transform.DetachChildren();
             Destroy(goarray[k]);
+            goarray[k - 1].transform.SetParent(this.transform);
             gohc = goarray[k - 1].GetComponent(typeof(height_constraint)) as height_constraint;
             gohc.connGO = this.gameObject;
             gohc.offset = 0.1179f;
@@ -107,7 +116,7 @@ public class ChainSpawn : MonoBehaviour
             link.name = string.Format("chainLink{0}", k);
             go = Instantiate(link, insttran, rotate) as GameObject;
             goarray[k] = go;
-            goarray[k - 1].transform.SetParent(go.transform);            
+            goarray[k - 1].transform.SetParent(go.transform);   
             gohc = goarray[k].GetComponent(typeof(height_constraint)) as height_constraint;
             gohc.connGO = this.gameObject;
             gohc.offset = 0.1179f;
@@ -115,8 +124,10 @@ public class ChainSpawn : MonoBehaviour
             gohc.gravfactor = gravity;
             gohc = goarray[k - 1].GetComponent(typeof(height_constraint)) as height_constraint;
             gohc.connGO = go.gameObject;
+            this.transform.DetachChildren();
             transform.Translate(drop, 0, 0, Space.Self);
             transform.Rotate(90, 0, 0, Space.Self);
+            go.transform.SetParent(this.transform);
             gohc = goarray[k].GetComponent(typeof(height_constraint)) as height_constraint;
             gohc.connGO = this.gameObject;
             gohc.offset = 0.1179f;
@@ -155,8 +166,14 @@ public class ChainSpawn : MonoBehaviour
             LowerChain();
         }
         //updatexz();
-        //updateHeights();
-        keytimer += Time.fixedDeltaTime;
+        //updateHeights(); 
+        for (i = k-1; i > 0; i--)
+        {
+            gohc = goarray[i].GetComponent(typeof(height_constraint)) as height_constraint;
+            velarray[i]= gohc.PositionUpdate(velarray[i+1]);
+            if (velarray[i].x != 0|| velarray[i].y != 0 || velarray[i].z != 0 ) { print(velarray[i]); }
+        }
+            keytimer += Time.fixedDeltaTime;
     }
 
     void updateHeights()
