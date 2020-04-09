@@ -8,6 +8,8 @@ public class CCTV_Controller : MonoBehaviour
 
     public float zoomRate = 1.0f;
     public float panRate = 1.0f;
+
+    public bool invertY;
     Camera camera;
 
     private void Start()
@@ -21,8 +23,8 @@ public class CCTV_Controller : MonoBehaviour
     {
 
         transform.Rotate(0, controller.outputX * panRate * Time.deltaTime, 0, Space.Self);
-        transform.Rotate(-controller.outputY * panRate * Time.deltaTime, 0, 0, Space.World);
 
+        transform.Rotate(-controller.outputY * panRate * Time.deltaTime, 0, 0, Space.Self);
 
         //Todo - gwc impliment VR Zoom
         /*
@@ -35,6 +37,11 @@ public class CCTV_Controller : MonoBehaviour
         }
         camera.fieldOfView -=
         */
-
     }
+
+
+
+
+
+
 }
