@@ -25,7 +25,7 @@ public class ChainSpawn : MonoBehaviour
     public float velmult;
     private GameObject go;
     private GameObject[] goarray;
-    private Vector3[] velarray;
+    public Vector3[] velarray;
     public Vector3[] posnarray;
     private int i;
     private int j;
