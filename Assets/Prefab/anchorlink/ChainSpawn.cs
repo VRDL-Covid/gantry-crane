@@ -32,13 +32,10 @@ public class ChainSpawn : MonoBehaviour
     private int k;
     private int l;
     private Vector3 insttran;
-    private float offset;
     private Vector3 vector;
     private float drop;
     private float keytimer;
     public float ramptime;
-    private SpringJoint gosj;
-    private Rigidbody gorb;
     private height_constraint gohc;
     // Start is called before the first frame update
     void Start()
@@ -47,7 +44,6 @@ public class ChainSpawn : MonoBehaviour
         velarray = new Vector3[250];
         posnarray = new Vector3[250];
         drop = 0.1179f;
-        offset = 0.12f;
         i = 0;
         j = linknumber;
         k = linknumber;
@@ -59,7 +55,7 @@ public class ChainSpawn : MonoBehaviour
             rotate = Quaternion.Euler(0, 90 * ((Mathf.Pow((-1f),(float)i) + 1f)/2f), 90);
             link.name = string.Format("chainLink{0}", j);
             go = Instantiate(link, new Vector3(this.transform.position.x, height, this.transform.position.z), rotate) as GameObject;
-            posnarray[i] = go.transform.position;
+            posnarray[j] = go.transform.position;
             gohc = go.GetComponent(typeof(height_constraint)) as height_constraint;
             if (j == linknumber) {
                 gohc.connGO = this.gameObject;
@@ -112,10 +108,6 @@ public class ChainSpawn : MonoBehaviour
             insttran.z = this.transform.position.z;
             rotate = this.transform.rotation;
             k++;
-            avrotate.x = (rotate2.x + (rotate.x)) / 2;
-            avrotate.y = (rotate2.y + (rotate.y)) / 2;
-            avrotate.z = (rotate2.z + (rotate.z)) / 2;
-            avrotate.w = (rotate2.w + (rotate.w)) / 2;
             link.name = string.Format("chainLink{0}", k);
             go = Instantiate(link, insttran, rotate) as GameObject;
             posnarray[k] = go.transform.position;
@@ -169,54 +161,18 @@ public class ChainSpawn : MonoBehaviour
             }
             LowerChain();
         }
-        //updatexz();
-        //updateHeights(); 
         for (i = k; i > 0; i--)
         {
             gohc = goarray[i].GetComponent(typeof(height_constraint)) as height_constraint;
             velarray[i]= gohc.PositionUpdate(velarray[i+1], i,k, this.gameObject);
-            //if (velarray[i].x != 0|| velarray[i].y != 0 || velarray[i].z != 0 ) { print(velarray[i]); }
         }
         for (i = k; i > 0; i--)
         {
             gohc = goarray[i].GetComponent(typeof(height_constraint)) as height_constraint;
             gohc.RotationUpdate(i,k, this.gameObject);
-            //if (velarray[i].x != 0|| velarray[i].y != 0 || velarray[i].z != 0 ) { print(velarray[i]); }
         }
             keytimer += Time.fixedDeltaTime;
     }
 
-    void updateHeights()
-    {
-        height0 = this.transform.position.y;
-        heighttracked = height0;
-        for (l = k; l > 0; l--)
-        {
-            heighttracked -= offset;
-            vector = this.transform.position - goarray[l].transform.position;
-            //if (vector.magnitude != offset*(k-l+1)*1.1)
-            //{
-                   goarray[l].transform.position += vector.normalized * (vector.magnitude-(0.1179f* (k - l + 1)));
-            //}
-
-            //if (vector.magnitude < offset * (k - l + 1)*0.75)
-            //{
-            //    goarray[l].transform.position -= vector.normalized * (vector.magnitude - (0.117f * (k - l + 1)));
-            //}
-        }
-    }
-    void updatexz()
-    {
-        x0 = this.transform.position.x;
-        z0 = this.transform.position.x;
-        for (l = k-1; l > 0; l--)
-        {
-            heighttracked -= offset;
-            vector = goarray[l].transform.position - goarray[l+1].transform.position;
-            if (vector.magnitude > .02f)
-            {
-                goarray[l].transform.position -= vector.normalized * (vector.magnitude - (.02f * (float)(k - l + 1)));
-            }
-        }
-    }
+   
 }
