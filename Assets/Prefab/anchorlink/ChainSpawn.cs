@@ -177,6 +177,12 @@ public class ChainSpawn : MonoBehaviour
             velarray[i]= gohc.PositionUpdate(velarray[i+1], i,k, this.gameObject);
             //if (velarray[i].x != 0|| velarray[i].y != 0 || velarray[i].z != 0 ) { print(velarray[i]); }
         }
+        for (i = k; i > 0; i--)
+        {
+            gohc = goarray[i].GetComponent(typeof(height_constraint)) as height_constraint;
+            gohc.RotationUpdate(i,k, this.gameObject);
+            //if (velarray[i].x != 0|| velarray[i].y != 0 || velarray[i].z != 0 ) { print(velarray[i]); }
+        }
             keytimer += Time.fixedDeltaTime;
     }
 
