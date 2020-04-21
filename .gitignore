@@ -1,0 +1,53 @@
+# =============== #
+# Unity folders #
+# =============== #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+3rdParty/
+Builds/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+
+# ===================================== #
+# Unity generated #
+# ===================================== #
+*.pidb.meta
+sysinfo.txt
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Library
+obj
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+/*.sln
+>>>>>>> chainOptimisation
+>>>>>>> Branch_77a0af53
+/*.csproj
+/*.sln
+/.vs/PAB/v16/*.suo
+/.vs/gantry-crane/v16/*.suo
