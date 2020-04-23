@@ -12,10 +12,12 @@ public class craneController : MonoBehaviour
     public analogueControllerBehaviour controller;
     public analogueControllerBehaviour hookController;
     public GameObject truck;
-    public GameObject Hook;
+ //   public GameObject Hook;
+    public GameObject Chain;
+    public ChainSpawn ChainSpawn;
     private void Start()
     {
-
+        ChainSpawn = Chain.GetComponent(typeof(ChainSpawn)) as ChainSpawn;
     }
 
     // Update is called once per frame
@@ -30,7 +32,17 @@ public class craneController : MonoBehaviour
     {
         transform.position += controller.outputY * Vector3.forward * craneSpeed * Time.deltaTime;
         truck.transform.position += controller.outputX * Vector3.right * craneSpeed * Time.deltaTime;
-        Hook.transform.position +=  Vector3.up * hookSpeed * hookController.outputY * Time.deltaTime;
+        //Hook.transform.position +=  Vector3.up * hookSpeed * hookController.outputY * Time.deltaTime;
+        print(hookController.outputY);
+
+        if (hookController.outputY > 0f)
+        {
+            hookUp();
+        }
+        else if(hookController.outputY < 0f)
+        {
+            hookDown();
+        }
     }
 
     private void handleKeyboardInput()
@@ -88,12 +100,12 @@ public class craneController : MonoBehaviour
 
     public void hookUp()
     {
-
+        ChainSpawn.RaiseChain();
         
     }
 
     public void hookDown()
     {
-        //hook.transform.position = hook.transform.position + Vector3.up * -hookSpeed * Time.deltaTime;
+        ChainSpawn.LowerChain();
     }
 }

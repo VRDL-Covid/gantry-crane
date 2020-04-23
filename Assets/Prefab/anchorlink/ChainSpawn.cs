@@ -84,12 +84,13 @@ public class ChainSpawn : MonoBehaviour
             goarray[i].transform.SetParent(goarray[i + 1].transform);
         }
     }
-    void RaiseChain()
+    public void RaiseChain()
     {
+        transform.Translate(0, Time.fixedDeltaTime * rlspeed, 0, Space.World);
         if (currentheight - iheight > drop)
         {
             this.transform.DetachChildren();
-            transform.Translate(-drop, 0, 0, Space.Self);
+            transform.Translate(0, -drop, 0, Space.World);
             transform.Rotate(90, 0, 0, Space.Self);
             goarray[k].transform.DetachChildren();
             Destroy(goarray[k]);
@@ -100,8 +101,9 @@ public class ChainSpawn : MonoBehaviour
             k--;
         }
     }
-    void LowerChain()
+    public void LowerChain()
     {
+        transform.Translate(0, -Time.fixedDeltaTime * rlspeed, 0, Space.World);
         if (currentheight - iheight < -drop)
         {
             insttran.x = this.transform.position.x;
@@ -122,7 +124,7 @@ public class ChainSpawn : MonoBehaviour
             gohc = goarray[k - 1].GetComponent(typeof(height_constraint)) as height_constraint;
             gohc.connGO = go.gameObject;
             this.transform.DetachChildren();
-            transform.Translate(drop, 0, 0, Space.Self);
+            transform.Translate(0, drop, 0, Space.World);
             transform.Rotate(90, 0, 0, Space.Self);
             go.transform.SetParent(this.transform);
             gohc = goarray[k].GetComponent(typeof(height_constraint)) as height_constraint;
@@ -137,32 +139,32 @@ public class ChainSpawn : MonoBehaviour
     void FixedUpdate()
     {
         currentheight = this.transform.position.y;
-        if (Input.GetKeyDown("e")) { keytimer = 0f; }
-        if (Input.GetKeyDown("q")) { keytimer = 0f; }
-        if (Input.GetKey("e"))
-        {
-            if (keytimer < ramptime)
-            {
-                transform.Translate(0, Time.fixedDeltaTime * rlspeed * keytimer / ramptime, 0, Space.World);
-            }
-            else
-            {
-                transform.Translate(0, Time.fixedDeltaTime * rlspeed, 0, Space.World);
-            }
-            RaiseChain();
-        }
-        if (Input.GetKey("q"))
-        {
-            if (keytimer < ramptime)
-            {
-                transform.Translate(0, -Time.fixedDeltaTime * rlspeed * keytimer / ramptime, 0, Space.World);
-            }
-            else
-            {
-                transform.Translate(0, -Time.fixedDeltaTime * rlspeed, 0, Space.World);
-            }
-            LowerChain();
-        }
+//        if (Input.GetKeyDown("e")) { keytimer = 0f; }
+//        if (Input.GetKeyDown("q")) { keytimer = 0f; }
+//        if (Input.GetKey("e"))
+//        {
+//            if (keytimer < ramptime)
+//            {
+//                transform.Translate(0, Time.fixedDeltaTime * rlspeed * keytimer / ramptime, 0, Space.World);
+//            }
+//            else
+//            {
+//                transform.Translate(0, Time.fixedDeltaTime * rlspeed, 0, Space.World);
+//            }
+//            RaiseChain();
+//        }
+//        if (Input.GetKey("q"))
+//        {
+//            if (keytimer < ramptime)
+//            {
+//                transform.Translate(0, -Time.fixedDeltaTime * rlspeed * keytimer / ramptime, 0, Space.World);
+//            }
+//            else
+//            {
+//                transform.Translate(0, -Time.fixedDeltaTime * rlspeed, 0, Space.World);
+//            }
+//            LowerChain();
+//        }
         for (i = k; i > 0; i--)
         {
             gohc = goarray[i].GetComponent(typeof(height_constraint)) as height_constraint;
