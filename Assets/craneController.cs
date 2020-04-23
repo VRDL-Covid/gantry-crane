@@ -12,7 +12,6 @@ public class craneController : MonoBehaviour
     public analogueControllerBehaviour controller;
     public analogueControllerBehaviour hookController;
     public GameObject truck;
- //   public GameObject Hook;
     public GameObject Chain;
     public ChainSpawn ChainSpawn;
     private void Start()
@@ -32,8 +31,6 @@ public class craneController : MonoBehaviour
     {
         transform.position += controller.outputY * Vector3.forward * craneSpeed * Time.deltaTime;
         truck.transform.position += controller.outputX * Vector3.right * craneSpeed * Time.deltaTime;
-        //Hook.transform.position +=  Vector3.up * hookSpeed * hookController.outputY * Time.deltaTime;
-        print(hookController.outputY);
 
         if (hookController.outputY > 0f)
         {
